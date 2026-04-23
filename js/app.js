@@ -83,6 +83,7 @@ document.addEventListener('alpine:init', () => {
       this.tickClock();
       setInterval(() => this.tickClock(), 1000);
 
+      // 1. Load seed mocks (always, for density)
       try {
         const [emps, evs] = await Promise.all([
           fetch('mock/employees.json').then(r => r.json()),
@@ -94,7 +95,10 @@ document.addEventListener('alpine:init', () => {
         console.error('Failed to load mock data', e);
       }
 
-      // Start polling (in demo mode just re-sorts; in prod fetches /api/events)
+      // 2. Merge real employees + events from live bot (if HR_API_BASE configured)
+      await this.mergeLive();
+
+      // 3. Poll events every 7s
       this._pollTimer = setInterval(() => this.pollEvents(), 7000);
     },
 
@@ -103,9 +107,116 @@ document.addEventListener('alpine:init', () => {
       this.now = d.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
     },
 
+    async mergeLive() {
+      const base = window.HR_API_BASE;
+      if (!base) return;
+
+      // Employees — real ones сверху (negative id чтобы не коллизить с mock)
+      try {
+        const realEmps = await fetch(`${base}/api/employees`).then(r => r.json());
+        if (Array.isArray(realEmps)) {
+          const adapted = realEmps.map(e => ({
+            id: -e.id,  // negative to avoid collision with mocks
+            _real: true,
+            fio: e.fio,
+            avatar: '🎬',  // mark real ones
+            position: e.position,
+            company: e.company,
+            manager: 'live',
+            start_date: e.start_date,
+            status: e.status,
+            progress: e.progress,
+            overdue: e.overdue,
+            hr_flag: e.overdue > 0 ? `${e.overdue} задач просрочено` : (e.status === 'day1' ? 'сегодня Day 1' : null),
+            tg_username: e.tg_username,
+          }));
+          // prepend real ones
+          this.employees = [...adapted, ...this.employees];
+        }
+      } catch (e) {
+        console.warn('mergeLive employees failed', e);
+      }
+
+      // Initial events — последние из live + mocks
+      try {
+        const realEvs = await fetch(`${base}/api/events`).then(r => r.json());
+        if (Array.isArray(realEvs)) {
+          const adapted = realEvs.map(e => ({
+            id: 1000000 + e.id,  // shift namespace
+            ts: e.ts,
+            type: e.type,
+            employee_id: e.employee_id || 0,
+            employee: e.employee,
+            text: e.text,
+            _real: true,
+          }));
+          this.events = [...adapted, ...this.events].sort((a, b) => new Date(b.ts) - new Date(a.ts));
+        }
+      } catch (e) {
+        console.warn('mergeLive events failed', e);
+      }
+    },
+
     async pollEvents() {
-      // In production: fetch(`${API_BASE}/api/events?since=${lastTs}`)
-      // In demo: no-op (mock data is static)
+      const base = window.HR_API_BASE;
+      if (!base) return;
+      // most recent real event ts
+      const recent = this.events.find(e => e._real);
+      const since = recent ? (new Date(recent.ts).getTime() / 1000) : 0;
+      try {
+        const fresh = await fetch(`${base}/api/events?since=${since}`).then(r => r.json());
+        if (!Array.isArray(fresh) || fresh.length === 0) return;
+        const adapted = fresh.map(e => ({
+          id: 1000000 + e.id,
+          ts: e.ts,
+          type: e.type,
+          employee_id: e.employee_id || 0,
+          employee: e.employee,
+          text: e.text,
+          _real: true,
+        }));
+        // dedupe by id
+        const existing = new Set(this.events.map(x => x.id));
+        const newOnes = adapted.filter(e => !existing.has(e.id));
+        if (newOnes.length) {
+          this.events = [...newOnes, ...this.events].slice(0, 80).sort((a, b) => new Date(b.ts) - new Date(a.ts));
+          // Also re-fetch employees if new employee_created event
+          if (newOnes.some(e => e.type === 'employee_created' || e.type === 'status_changed')) {
+            await this.refetchLiveEmployees();
+          }
+        }
+      } catch (e) {
+        console.warn('poll failed', e);
+      }
+    },
+
+    async refetchLiveEmployees() {
+      const base = window.HR_API_BASE;
+      if (!base) return;
+      try {
+        const real = await fetch(`${base}/api/employees`).then(r => r.json());
+        if (!Array.isArray(real)) return;
+        const adapted = real.map(e => ({
+          id: -e.id,
+          _real: true,
+          fio: e.fio,
+          avatar: '🎬',
+          position: e.position,
+          company: e.company,
+          manager: 'live',
+          start_date: e.start_date,
+          status: e.status,
+          progress: e.progress,
+          overdue: e.overdue,
+          hr_flag: e.overdue > 0 ? `${e.overdue} задач просрочено` : (e.status === 'day1' ? 'сегодня Day 1' : null),
+          tg_username: e.tg_username,
+        }));
+        // keep mocks, replace real ones
+        const mocks = this.employees.filter(e => !e._real);
+        this.employees = [...adapted, ...mocks];
+      } catch (e) {
+        console.warn('refetchLive failed', e);
+      }
     },
 
     async refreshFeed() {
