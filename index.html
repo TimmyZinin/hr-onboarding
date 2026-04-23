@@ -59,11 +59,11 @@
     </div>
     <nav class="nav-items">
       <button class="nav-item active"><svg><use href="#i-dash"/></svg>Обзор</button>
-      <button class="nav-item"><svg><use href="#i-users"/></svg>Сотрудники <span class="count" x-text="employees.filter(e => ['prep','day1','probation'].includes(e.status)).length"></span></button>
-      <button class="nav-item"><svg><use href="#i-tasks"/></svg>Задачи <span class="count alert" x-text="metrics.overdue" x-show="metrics.overdue > 0"></span></button>
-      <button class="nav-item"><svg><use href="#i-chart"/></svg>Отчёты</button>
+      <button class="nav-item soon" disabled title="Скоро — в следующем спринте"><svg><use href="#i-users"/></svg>Сотрудники <span class="soon-tag">скоро</span></button>
+      <button class="nav-item soon" disabled title="Скоро"><svg><use href="#i-tasks"/></svg>Задачи <span class="soon-tag">скоро</span></button>
+      <button class="nav-item soon" disabled title="Скоро"><svg><use href="#i-chart"/></svg>Отчёты <span class="soon-tag">скоро</span></button>
       <div class="nav-section">Настройки</div>
-      <button class="nav-item"><svg><use href="#i-settings"/></svg>Интеграции</button>
+      <button class="nav-item soon" disabled title="Скоро"><svg><use href="#i-settings"/></svg>Интеграции <span class="soon-tag">скоро</span></button>
     </nav>
     <div class="nav-footer">
       <div class="nav-user-avatar" style="background: oklch(55% 0.15 300);">ДХ</div>

@@ -194,6 +194,27 @@ button:focus-visible, a:focus-visible, input:focus-visible, [tabindex]:focus-vis
 .nav-item.active .count { background: var(--bordeaux); color: #fff; }
 .nav-item .count.alert { background: var(--rust-soft); color: var(--rust); }
 
+.nav-item.soon {
+  opacity: 0.55;
+  cursor: not-allowed;
+  color: var(--ink-4);
+}
+.nav-item.soon:hover { background: transparent; color: var(--ink-4); }
+.nav-item.soon svg { opacity: 0.7; }
+.nav-item .soon-tag {
+  margin-left: auto;
+  font-family: var(--f-mono);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: var(--r-pill);
+  background: var(--surface-2);
+  color: var(--ink-4);
+  border: 1px solid var(--border);
+}
+
 .nav-section {
   font-size: 10px;
   font-weight: 700;
