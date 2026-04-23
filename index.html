@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HR Onboarding — живой пульс компании</title>
+<meta name="description" content="Все онбординги сотрудников в одном окне. Прогресс, метрики, live-события из Telegram-бота.">
+<meta property="og:title" content="HR Onboarding — живой пульс компании">
+<meta property="og:description" content="Все онбординги сотрудников в одном окне. Прогресс, метрики, live-события из Telegram-бота.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Serif+Display&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script defer src="https://unpkg.com/alpinejs@3.14.8/dist/cdn.min.js"></script>
+</head>
+<body x-data="dashboard" x-init="init()" x-cloak>
+
+<div class="app">
+
+  <header class="topbar">
+    <div>
+      <div class="brand"><em>HR</em> Onboarding</div>
+    </div>
+    <div class="brand-sub mono">live · <span x-text="now"></span></div>
+    <div class="top-cta">
+      <button class="btn" @click="refreshFeed()">↻ Обновить</button>
+      <button class="btn primary" @click="openNewModal()">+ Новый сотрудник</button>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <section class="hero">
+      <div>
+        <h1 class="hero-title">Онбординг — <em>на одном экране</em>.</h1>
+        <p class="hero-sub">Все новички, все задачи, все роли. Видно кто выходит сегодня, где просрочки, какие вопросы к HR. Задачи и welcome-видео уходят в Telegram сотруднику сами — вы просто смотрите, как идёт.</p>
+      </div>
+      <div class="hero-viz">
+        <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="grad1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="oklch(72% 0.14 75)" />
+              <stop offset="100%" stop-color="oklch(42% 0.15 25)" />
+            </linearGradient>
+          </defs>
+          <!-- abstract dashboard composition -->
+          <rect x="20" y="40" width="150" height="90" rx="8" fill="oklch(93% 0.04 85)" stroke="oklch(20% 0.02 40)" stroke-width="1.5"/>
+          <rect x="30" y="55" width="60" height="8" rx="4" fill="oklch(42% 0.15 25)"/>
+          <rect x="30" y="70" width="100" height="5" rx="2" fill="oklch(55% 0.02 40)"/>
+          <rect x="30" y="82" width="80" height="5" rx="2" fill="oklch(55% 0.02 40)"/>
+          <rect x="30" y="100" width="130" height="4" rx="2" fill="oklch(85% 0.02 40)"/>
+          <rect x="30" y="100" width="85" height="4" rx="2" fill="oklch(42% 0.15 25)"/>
+
+          <circle cx="280" cy="85" r="55" fill="url(#grad1)" opacity="0.9"/>
+          <circle cx="280" cy="85" r="35" fill="oklch(97% 0.02 85)"/>
+          <text x="280" y="92" text-anchor="middle" font-family="DM Serif Display" font-size="28" fill="oklch(18% 0.02 40)">15</text>
+
+          <rect x="20" y="160" width="360" height="120" rx="8" fill="oklch(93% 0.04 85)" stroke="oklch(20% 0.02 40)" stroke-width="1.5"/>
+          <circle cx="45" cy="185" r="12" fill="oklch(72% 0.14 75)"/>
+          <rect x="65" y="180" width="200" height="5" rx="2" fill="oklch(18% 0.02 40)"/>
+          <rect x="65" y="192" width="140" height="4" rx="2" fill="oklch(55% 0.02 40)"/>
+          <circle cx="45" cy="215" r="12" fill="oklch(42% 0.15 25)"/>
+          <rect x="65" y="210" width="220" height="5" rx="2" fill="oklch(18% 0.02 40)"/>
+          <rect x="65" y="222" width="160" height="4" rx="2" fill="oklch(55% 0.02 40)"/>
+          <circle cx="45" cy="245" r="12" fill="oklch(55% 0.12 140)"/>
+          <rect x="65" y="240" width="180" height="5" rx="2" fill="oklch(18% 0.02 40)"/>
+          <rect x="65" y="252" width="130" height="4" rx="2" fill="oklch(55% 0.02 40)"/>
+
+          <g stroke="oklch(42% 0.15 25)" stroke-width="2" fill="none">
+            <path d="M 180 120 Q 220 100 260 120" opacity="0.4"/>
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <section class="metrics">
+      <div class="metric">
+        <div class="num"><em x-text="metrics.inOnboarding"></em></div>
+        <div class="label">В онбординге</div>
+      </div>
+      <div class="metric" :class="metrics.overdue > 0 ? 'alert' : ''">
+        <div class="num"><em x-text="metrics.overdue"></em></div>
+        <div class="label">Просрочек</div>
+      </div>
+      <div class="metric">
+        <div class="num"><em x-text="metrics.todayStart"></em></div>
+        <div class="label">Выходят сегодня</div>
+      </div>
+      <div class="metric">
+        <div class="num"><em x-text="metrics.upcomingReview"></em></div>
+        <div class="label">90-day review на неделе</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2 class="section-title">Активные <em>онбординги</em></h2>
+        <div class="controls">
+          <input class="search" type="search" placeholder="Найти по ФИО или должности" x-model="search">
+          <button class="chip" :class="filter === 'all' ? 'active' : ''" @click="filter = 'all'">все</button>
+          <button class="chip" :class="filter === 'prep' ? 'active' : ''" @click="filter = 'prep'">подготовка</button>
+          <button class="chip" :class="filter === 'day1' ? 'active' : ''" @click="filter = 'day1'">первый день</button>
+          <button class="chip" :class="filter === 'probation' ? 'active' : ''" @click="filter = 'probation'">испытательный</button>
+          <button class="chip" :class="filter === 'staffed' ? 'active' : ''" @click="filter = 'staffed'">в штате</button>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table class="employees">
+          <thead>
+            <tr>
+              <th>Сотрудник</th>
+              <th>Юр. лицо</th>
+              <th>Дата выхода</th>
+              <th>Статус</th>
+              <th>Прогресс</th>
+              <th>Флаг</th>
+            </tr>
+          </thead>
+          <tbody>
+            <template x-for="emp in filteredEmployees" :key="emp.id">
+              <tr @click="openDetail(emp)">
+                <td>
+                  <div class="cell-fio">
+                    <div class="avatar" x-text="emp.avatar"></div>
+                    <div>
+                      <div x-text="emp.fio"></div>
+                      <div class="position" x-text="emp.position"></div>
+                    </div>
+                  </div>
+                </td>
+                <td><span class="badge badge-company" x-text="emp.company"></span></td>
+                <td class="mono" x-text="formatDate(emp.start_date)"></td>
+                <td><span class="pill-status" :class="'status-' + emp.status" x-text="statusLabel(emp.status)"></span></td>
+                <td>
+                  <div class="progress">
+                    <div class="progress-bar">
+                      <div class="progress-fill" :style="`width: ${(emp.progress.done / emp.progress.total * 100).toFixed(0)}%`"></div>
+                    </div>
+                    <span class="progress-txt" x-text="`${emp.progress.done}/${emp.progress.total}`"></span>
+                  </div>
+                </td>
+                <td>
+                  <span x-show="emp.hr_flag" class="flag" x-text="emp.hr_flag"></span>
+                  <span x-show="!emp.hr_flag" class="mono" style="color: var(--ink-muted);">—</span>
+                </td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="widget-grid">
+      <div class="widget">
+        <div class="widget-label">Распределение по юр. лицам</div>
+        <template x-for="co in companyStats" :key="co.name">
+          <div class="bar-row">
+            <span class="bar-label" x-text="co.name"></span>
+            <div class="bar-track">
+              <div class="bar-fill" :class="co.name === 'ЦПС' ? 'ct' : ''" :style="`width: ${(co.count / employees.length * 100).toFixed(0)}%`"></div>
+            </div>
+            <span class="bar-val" x-text="co.count"></span>
+          </div>
+        </template>
+      </div>
+      <div class="widget">
+        <div class="widget-label">Распределение по статусу</div>
+        <template x-for="st in statusStats" :key="st.key">
+          <div class="bar-row">
+            <span class="bar-label" x-text="st.label"></span>
+            <div class="bar-track">
+              <div class="bar-fill" :style="`width: ${(st.count / employees.length * 100).toFixed(0)}%; background: ${st.color}`"></div>
+            </div>
+            <span class="bar-val" x-text="st.count"></span>
+          </div>
+        </template>
+      </div>
+      <div class="widget">
+        <div class="widget-label">Ближайшие события</div>
+        <template x-for="u in upcoming" :key="u.id">
+          <div class="bar-row">
+            <span class="bar-label mono" x-text="u.when"></span>
+            <span style="flex:1; font-size:13px;" x-text="u.text"></span>
+          </div>
+        </template>
+      </div>
+    </section>
+
+  </main>
+
+  <aside class="feed-col">
+    <div class="feed">
+      <div class="feed-title"><span class="dot"></span> Live activity · обновление каждые 7 сек</div>
+      <template x-for="ev in events" :key="ev.id">
+        <div class="event">
+          <div class="ev-icon" x-text="eventIcon(ev.type)"></div>
+          <div class="ev-body">
+            <span class="ev-emp" x-text="ev.employee"></span>
+            <span class="ev-text" x-text="' ' + ev.text"></span>
+            <div class="ev-ts mono" x-text="formatEventTs(ev.ts)"></div>
+          </div>
+        </div>
+      </template>
+    </div>
+  </aside>
+
+  <footer class="footer">
+    <span>HR Onboarding · демо · пульс компании в real-time</span> ·
+    <span>bot: <b>@zinin_hr_onboarding_bot</b></span> ·
+    <span>source: <b>github.com/TimmyZinin/hr-onboarding</b></span>
+  </footer>
+
+</div>
+
+<!-- Detail modal -->
+<div class="modal-backdrop" x-show="detailOpen" @click.self="closeDetail()" x-cloak>
+  <div class="modal" x-show="detailOpen" x-transition>
+    <button class="modal-close" @click="closeDetail()">×</button>
+    <template x-if="current">
+      <div>
+        <div class="emp-head">
+          <div class="avatar" x-text="current.avatar"></div>
+          <div style="flex:1">
+            <div class="fio" x-text="current.fio"></div>
+            <div class="pos" x-text="current.position + ' · ' + current.manager"></div>
+            <div class="emp-meta">
+              <span class="badge badge-company" x-text="current.company"></span>
+              <span class="pill-status" :class="'status-' + current.status" x-text="statusLabel(current.status)"></span>
+              <span class="mono" style="font-size:11px;color:var(--ink-soft);letter-spacing:0.1em">
+                ВЫХОД: <span x-text="formatDate(current.start_date)"></span>
+              </span>
+              <span class="mono" style="font-size:11px;color:var(--ink-soft);letter-spacing:0.1em">
+                ПРОГРЕСС: <span x-text="current.progress.done + '/' + current.progress.total"></span>
+              </span>
+            </div>
+            <div x-show="current.hr_flag" class="flag" style="margin-top:10px" x-text="current.hr_flag"></div>
+          </div>
+        </div>
+
+        <h3 style="font-size:22px;margin-bottom:16px">Timeline онбординга</h3>
+        <div class="timeline">
+          <template x-for="group in timelineForCurrent" :key="group.day">
+            <div class="t-day">
+              <div class="t-day-label" x-text="dayLabel(group.day)"></div>
+              <template x-for="task in group.tasks" :key="task.idx">
+                <div class="t-task" :class="{ done: task.status === 'done', overdue: task.status === 'overdue' }">
+                  <span class="t-role-chip" :class="'chip-role-' + task.role" x-text="roleLabel(task.role)"></span>
+                  <span class="t-title" x-text="task.title"></span>
+                  <span class="t-status mono" :class="{ 'done-mark': task.status === 'done' }" x-text="taskStatusLabel(task.status)"></span>
+                </div>
+              </template>
+            </div>
+          </template>
+        </div>
+      </div>
+    </template>
+  </div>
+</div>
+
+<!-- New-employee modal (demo only — просто показывает что есть точка входа) -->
+<div class="modal-backdrop" x-show="newOpen" @click.self="newOpen=false" x-cloak>
+  <div class="modal" x-show="newOpen" x-transition style="max-width:500px">
+    <button class="modal-close" @click="newOpen=false">×</button>
+    <h3 style="font-size:26px;margin-bottom:16px">Новый сотрудник</h3>
+    <p style="color:var(--ink-soft);margin-bottom:20px;line-height:1.5">Добавить сотрудника можно командой в боте:</p>
+    <div class="mono" style="background:var(--cream);padding:14px 18px;border-radius:var(--r-md);border:1.5px solid var(--line);font-size:13px;margin-bottom:16px">
+      /new Иванов Иван Иванович, Инженер-сметчик, 2026-04-28, СТ, @iivanov
+    </div>
+    <p style="color:var(--ink-soft);font-size:14px;line-height:1.5">Бот сразу отправит новичку приветственное видео основателя и развернёт расписание из 22 задач на Day 0, дальше задачи идут по расписанию — от Day 1 до Day 90.</p>
+    <a href="https://t.me/zinin_hr_onboarding_bot" target="_blank" class="btn primary" style="margin-top:20px;display:inline-block;text-decoration:none">Открыть бота в Telegram</a>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
