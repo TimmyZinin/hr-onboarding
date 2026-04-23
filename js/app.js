@@ -107,50 +107,48 @@ document.addEventListener('alpine:init', () => {
       this.now = d.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
     },
 
+    _adaptLiveEmp(e) {
+      return {
+        id: -e.id,
+        _real: true,
+        fio: e.fio,
+        avatar: '🎬',
+        position: e.position,
+        company: e.company,
+        manager: 'live',
+        start_date: e.start_date,
+        status: e.status,
+        progress: e.progress,
+        overdue: e.overdue,
+        hr_flag: e.overdue > 0 ? `${e.overdue} задач просрочено` : (e.status === 'day1' ? 'сегодня Day 1' : null),
+        tg_username: e.tg_username,
+      };
+    },
+
+    _adaptLiveEv(e) {
+      return {
+        id: 1000000 + e.id,
+        ts: e.ts,
+        type: e.type,
+        employee_id: e.employee_id || 0,
+        employee: e.employee,
+        text: e.text,
+        _real: true,
+      };
+    },
+
     async mergeLive() {
+      await this.refetchLiveEmployees();
       const base = window.HR_API_BASE;
       if (!base) return;
-
-      // Employees — real ones сверху (negative id чтобы не коллизить с mock)
-      try {
-        const realEmps = await fetch(`${base}/api/employees`).then(r => r.json());
-        if (Array.isArray(realEmps)) {
-          const adapted = realEmps.map(e => ({
-            id: -e.id,  // negative to avoid collision with mocks
-            _real: true,
-            fio: e.fio,
-            avatar: '🎬',  // mark real ones
-            position: e.position,
-            company: e.company,
-            manager: 'live',
-            start_date: e.start_date,
-            status: e.status,
-            progress: e.progress,
-            overdue: e.overdue,
-            hr_flag: e.overdue > 0 ? `${e.overdue} задач просрочено` : (e.status === 'day1' ? 'сегодня Day 1' : null),
-            tg_username: e.tg_username,
-          }));
-          // prepend real ones
-          this.employees = [...adapted, ...this.employees];
-        }
-      } catch (e) {
-        console.warn('mergeLive employees failed', e);
-      }
-
-      // Initial events — последние из live + mocks
       try {
         const realEvs = await fetch(`${base}/api/events`).then(r => r.json());
         if (Array.isArray(realEvs)) {
-          const adapted = realEvs.map(e => ({
-            id: 1000000 + e.id,  // shift namespace
-            ts: e.ts,
-            type: e.type,
-            employee_id: e.employee_id || 0,
-            employee: e.employee,
-            text: e.text,
-            _real: true,
-          }));
-          this.events = [...adapted, ...this.events].sort((a, b) => new Date(b.ts) - new Date(a.ts));
+          const adapted = realEvs.map(x => this._adaptLiveEv(x));
+          // Dedupe by id before merge
+          const seen = new Set(this.events.map(x => x.id));
+          const uniq = adapted.filter(x => !seen.has(x.id));
+          this.events = [...uniq, ...this.events].sort((a, b) => new Date(b.ts) - new Date(a.ts));
         }
       } catch (e) {
         console.warn('mergeLive events failed', e);
@@ -196,22 +194,8 @@ document.addEventListener('alpine:init', () => {
       try {
         const real = await fetch(`${base}/api/employees`).then(r => r.json());
         if (!Array.isArray(real)) return;
-        const adapted = real.map(e => ({
-          id: -e.id,
-          _real: true,
-          fio: e.fio,
-          avatar: '🎬',
-          position: e.position,
-          company: e.company,
-          manager: 'live',
-          start_date: e.start_date,
-          status: e.status,
-          progress: e.progress,
-          overdue: e.overdue,
-          hr_flag: e.overdue > 0 ? `${e.overdue} задач просрочено` : (e.status === 'day1' ? 'сегодня Day 1' : null),
-          tg_username: e.tg_username,
-        }));
-        // keep mocks, replace real ones
+        const adapted = real.map(e => this._adaptLiveEmp(e));
+        // keep mocks (non-_real), prepend real
         const mocks = this.employees.filter(e => !e._real);
         this.employees = [...adapted, ...mocks];
       } catch (e) {
