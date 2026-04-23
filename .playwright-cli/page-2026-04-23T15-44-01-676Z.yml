@@ -1,0 +1,607 @@
+- generic [ref=e2]:
+  - complementary [ref=e3]:
+    - generic [ref=e4]:
+      - generic [ref=e5]: ⚡
+      - generic [ref=e6]:
+        - generic [ref=e7]: Сила Тока
+        - generic [ref=e8]: HR Onboarding
+    - navigation [ref=e9]:
+      - button "Обзор" [ref=e10] [cursor=pointer]:
+        - img [ref=e11]
+        - text: Обзор
+      - button "Сотрудники 16" [ref=e13] [cursor=pointer]:
+        - img [ref=e14]
+        - text: Сотрудники
+        - generic [ref=e16]: "16"
+      - button "Задачи 3" [ref=e17] [cursor=pointer]:
+        - img [ref=e18]
+        - text: Задачи
+        - generic [ref=e20]: "3"
+      - button "Отчёты" [ref=e21] [cursor=pointer]:
+        - img [ref=e22]
+        - text: Отчёты
+      - generic [ref=e24]: Настройки
+      - button "Интеграции" [ref=e25] [cursor=pointer]:
+        - img [ref=e26]
+        - text: Интеграции
+    - generic [ref=e28]:
+      - generic [ref=e29]: ДХ
+      - generic [ref=e30]:
+        - generic [ref=e31]: Дмитрий Харламов
+        - generic [ref=e32]: HR · admin
+  - banner [ref=e33]:
+    - generic [ref=e34]: Обзор 23 апреля · обновлено 18:44:01
+    - generic [ref=e35]:
+      - generic:
+        - img
+      - searchbox "Поиск" [ref=e36]
+    - generic [ref=e37]:
+      - generic [ref=e38]: LIVE
+      - button "Уведомления" [ref=e40] [cursor=pointer]:
+        - img [ref=e41]
+      - generic [ref=e43] [cursor=pointer]:
+        - generic [ref=e44]: ДХ
+        - generic [ref=e45]: Дмитрий
+  - main [ref=e46]:
+    - generic [ref=e47]:
+      - heading "Дмитрий, вот текущая картина онбординга." [level=1] [ref=e48]:
+        - emphasis [ref=e49]: Дмитрий
+        - text: ", вот текущая картина онбординга."
+      - generic [ref=e50]: Задачи и welcome-видео уходят сотрудникам сами. Вы видите живой статус.
+    - generic [ref=e51]:
+      - generic [ref=e52]:
+        - generic [ref=e53]:
+          - img [ref=e54]
+          - text: В онбординге
+        - generic [ref=e56]: "16"
+        - generic [ref=e57]: "за 24 ч: стабильно"
+      - generic [ref=e58]:
+        - generic [ref=e59]:
+          - img [ref=e60]
+          - text: Просрочки
+        - generic [ref=e62]: "3"
+        - generic [ref=e63]:
+          - img [ref=e64]
+          - text: требуют действий
+      - generic [ref=e66]:
+        - generic [ref=e67]:
+          - img [ref=e68]
+          - text: Выходят сегодня
+        - generic [ref=e70]: "3"
+        - generic [ref=e71]:
+          - generic [ref=e72]: "6"
+          - text: до конца недели
+      - generic [ref=e73]:
+        - generic [ref=e74]:
+          - img [ref=e75]
+          - text: 90-day review
+        - generic [ref=e77]: "0"
+        - generic [ref=e78]: на этой неделе
+    - generic [ref=e79]:
+      - generic [ref=e80]:
+        - generic [ref=e81]:
+          - generic [ref=e82]:
+            - generic [ref=e83]:
+              - generic [ref=e84]: Активные онбординги
+              - generic [ref=e85]: 18 из 18 · сортировка по дате выхода
+            - generic [ref=e86]:
+              - button "Все" [ref=e87] [cursor=pointer]
+              - button "Подготовка" [ref=e88] [cursor=pointer]
+              - button "Первый день" [ref=e89] [cursor=pointer]
+              - button "Испытательный" [ref=e90] [cursor=pointer]
+              - button "В штате" [ref=e91] [cursor=pointer]
+              - button "Экспорт" [ref=e92] [cursor=pointer]:
+                - img [ref=e93]
+                - text: Экспорт
+              - button "Новый" [ref=e95] [cursor=pointer]:
+                - img [ref=e96]
+                - text: Новый
+          - table [ref=e98]:
+            - rowgroup [ref=e99]:
+              - row "Сотрудник Юр. лицо Дата выхода Статус Прогресс Флаг" [ref=e100]:
+                - columnheader "Сотрудник" [ref=e101]
+                - columnheader "Юр. лицо" [ref=e102]
+                - columnheader "Дата выхода" [ref=e103]
+                - columnheader "Статус" [ref=e104]
+                - columnheader "Прогресс" [ref=e105]
+                - columnheader "Флаг" [ref=e106]
+            - rowgroup [ref=e107]:
+              - row "ГР Галлямов Руслан Зуфарович Инженер-сметчик СТ 27 апр. Подготовка 8/15 —" [ref=e108] [cursor=pointer]:
+                - cell "ГР Галлямов Руслан Зуфарович Инженер-сметчик" [ref=e109]:
+                  - generic [ref=e110]:
+                    - generic [ref=e111]: ГР
+                    - generic [ref=e112]:
+                      - generic [ref=e114]: Галлямов Руслан Зуфарович
+                      - generic [ref=e115]: Инженер-сметчик
+                - cell "СТ" [ref=e116]:
+                  - generic [ref=e117]: СТ
+                - cell "27 апр." [ref=e118]
+                - cell "Подготовка" [ref=e119]:
+                  - generic [ref=e120]: Подготовка
+                - cell "8/15" [ref=e121]:
+                  - generic [ref=e125]: 8/15
+                - cell "—" [ref=e126]
+              - row "ИП Иванов Пётр Сергеевич Электромонтажник 6 разряда ЦПС 23 апр. Первый день 6/22 Не явился на инструктаж ОТ" [ref=e127] [cursor=pointer]:
+                - cell "ИП Иванов Пётр Сергеевич Электромонтажник 6 разряда" [ref=e128]:
+                  - generic [ref=e129]:
+                    - generic [ref=e130]: ИП
+                    - generic [ref=e131]:
+                      - generic [ref=e133]: Иванов Пётр Сергеевич
+                      - generic [ref=e134]: Электромонтажник 6 разряда
+                - cell "ЦПС" [ref=e135]:
+                  - generic [ref=e136]: ЦПС
+                - cell "23 апр." [ref=e137]
+                - cell "Первый день" [ref=e138]:
+                  - generic [ref=e139]: Первый день
+                - cell "6/22" [ref=e140]:
+                  - generic [ref=e144]: 6/22
+                - cell "Не явился на инструктаж ОТ" [ref=e145]:
+                  - generic [ref=e146]:
+                    - img [ref=e147]
+                    - generic [ref=e149]: Не явился на инструктаж ОТ
+              - row "ПА Петров Александр Николаевич Инженер ПТО СТ 09 мар. Испытательный 24/30 —" [ref=e150] [cursor=pointer]:
+                - cell "ПА Петров Александр Николаевич Инженер ПТО" [ref=e151]:
+                  - generic [ref=e152]:
+                    - generic [ref=e153]: ПА
+                    - generic [ref=e154]:
+                      - generic [ref=e156]: Петров Александр Николаевич
+                      - generic [ref=e157]: Инженер ПТО
+                - cell "СТ" [ref=e158]:
+                  - generic [ref=e159]: СТ
+                - cell "09 мар." [ref=e160]
+                - cell "Испытательный" [ref=e161]:
+                  - generic [ref=e162]: Испытательный
+                - cell "24/30" [ref=e163]:
+                  - generic [ref=e167]: 24/30
+                - cell "—" [ref=e168]
+              - row "КМ Кузнецова Мария Владимировна Бухгалтер по ЗП и кадрам СТ 20 февр. Испытательный 28/30 90-day review через 3 дня" [ref=e169] [cursor=pointer]:
+                - cell "КМ Кузнецова Мария Владимировна Бухгалтер по ЗП и кадрам" [ref=e170]:
+                  - generic [ref=e171]:
+                    - generic [ref=e172]: КМ
+                    - generic [ref=e173]:
+                      - generic [ref=e175]: Кузнецова Мария Владимировна
+                      - generic [ref=e176]: Бухгалтер по ЗП и кадрам
+                - cell "СТ" [ref=e177]:
+                  - generic [ref=e178]: СТ
+                - cell "20 февр." [ref=e179]
+                - cell "Испытательный" [ref=e180]:
+                  - generic [ref=e181]: Испытательный
+                - cell "28/30" [ref=e182]:
+                  - generic [ref=e186]: 28/30
+                - cell "90-day review через 3 дня" [ref=e187]:
+                  - generic [ref=e188]:
+                    - img [ref=e189]
+                    - generic [ref=e191]: 90-day review через 3 дня
+              - row "СД Сидоров Дмитрий Игоревич Начальник электромонтажного участка ЦПС 24 апр. Подготовка 11/15 —" [ref=e192] [cursor=pointer]:
+                - cell "СД Сидоров Дмитрий Игоревич Начальник электромонтажного участка" [ref=e193]:
+                  - generic [ref=e194]:
+                    - generic [ref=e195]: СД
+                    - generic [ref=e196]:
+                      - generic [ref=e198]: Сидоров Дмитрий Игоревич
+                      - generic [ref=e199]: Начальник электромонтажного участка
+                - cell "ЦПС" [ref=e200]:
+                  - generic [ref=e201]: ЦПС
+                - cell "24 апр." [ref=e202]
+                - cell "Подготовка" [ref=e203]:
+                  - generic [ref=e204]: Подготовка
+                - cell "11/15" [ref=e205]:
+                  - generic [ref=e209]: 11/15
+                - cell "—" [ref=e210]
+              - row "ВА Волков Андрей Николаевич Монтажник связи ЦПС 28 апр. Подготовка 3/15 Кандидат ещё не прислал документы" [ref=e211] [cursor=pointer]:
+                - cell "ВА Волков Андрей Николаевич Монтажник связи" [ref=e212]:
+                  - generic [ref=e213]:
+                    - generic [ref=e214]: ВА
+                    - generic [ref=e215]:
+                      - generic [ref=e217]: Волков Андрей Николаевич
+                      - generic [ref=e218]: Монтажник связи
+                - cell "ЦПС" [ref=e219]:
+                  - generic [ref=e220]: ЦПС
+                - cell "28 апр." [ref=e221]
+                - cell "Подготовка" [ref=e222]:
+                  - generic [ref=e223]: Подготовка
+                - cell "3/15" [ref=e224]:
+                  - generic [ref=e228]: 3/15
+                - cell "Кандидат ещё не прислал документы" [ref=e229]:
+                  - generic [ref=e230]:
+                    - img [ref=e231]
+                    - generic [ref=e233]: Кандидат ещё не прислал документы
+              - row "СА Смирнова Анна Павловна HR-ассистент СТ 23 апр. Первый день 14/22 —" [ref=e234] [cursor=pointer]:
+                - cell "СА Смирнова Анна Павловна HR-ассистент" [ref=e235]:
+                  - generic [ref=e236]:
+                    - generic [ref=e237]: СА
+                    - generic [ref=e238]:
+                      - generic [ref=e240]: Смирнова Анна Павловна
+                      - generic [ref=e241]: HR-ассистент
+                - cell "СТ" [ref=e242]:
+                  - generic [ref=e243]: СТ
+                - cell "23 апр." [ref=e244]
+                - cell "Первый день" [ref=e245]:
+                  - generic [ref=e246]: Первый день
+                - cell "14/22" [ref=e247]:
+                  - generic [ref=e251]: 14/22
+                - cell "—" [ref=e252]
+              - row "ЛЕ Лебедев Егор Максимович Инженер-проектировщик СТ 01 февр. Испытательный 29/30 90-day review через 8 дней" [ref=e253] [cursor=pointer]:
+                - cell "ЛЕ Лебедев Егор Максимович Инженер-проектировщик" [ref=e254]:
+                  - generic [ref=e255]:
+                    - generic [ref=e256]: ЛЕ
+                    - generic [ref=e257]:
+                      - generic [ref=e259]: Лебедев Егор Максимович
+                      - generic [ref=e260]: Инженер-проектировщик
+                - cell "СТ" [ref=e261]:
+                  - generic [ref=e262]: СТ
+                - cell "01 февр." [ref=e263]
+                - cell "Испытательный" [ref=e264]:
+                  - generic [ref=e265]: Испытательный
+                - cell "29/30" [ref=e266]:
+                  - generic [ref=e270]: 29/30
+                - cell "90-day review через 8 дней" [ref=e271]:
+                  - generic [ref=e272]:
+                    - img [ref=e273]
+                    - generic [ref=e275]: 90-day review через 8 дней
+              - row "ОН Орлов Николай Петрович ГИП СТ 15 янв. В штате 30/30 —" [ref=e276] [cursor=pointer]:
+                - cell "ОН Орлов Николай Петрович ГИП" [ref=e277]:
+                  - generic [ref=e278]:
+                    - generic [ref=e279]: ОН
+                    - generic [ref=e280]:
+                      - generic [ref=e282]: Орлов Николай Петрович
+                      - generic [ref=e283]: ГИП
+                - cell "СТ" [ref=e284]:
+                  - generic [ref=e285]: СТ
+                - cell "15 янв." [ref=e286]
+                - cell "В штате" [ref=e287]:
+                  - generic [ref=e288]: В штате
+                - cell "30/30" [ref=e289]:
+                  - generic [ref=e293]: 30/30
+                - cell "—" [ref=e294]
+              - row "НО Новикова Ольга Сергеевна Главный инженер проекта СТ 01 мар. Испытательный 26/30 —" [ref=e295] [cursor=pointer]:
+                - cell "НО Новикова Ольга Сергеевна Главный инженер проекта" [ref=e296]:
+                  - generic [ref=e297]:
+                    - generic [ref=e298]: НО
+                    - generic [ref=e299]:
+                      - generic [ref=e301]: Новикова Ольга Сергеевна
+                      - generic [ref=e302]: Главный инженер проекта
+                - cell "СТ" [ref=e303]:
+                  - generic [ref=e304]: СТ
+                - cell "01 мар." [ref=e305]
+                - cell "Испытательный" [ref=e306]:
+                  - generic [ref=e307]: Испытательный
+                - cell "26/30" [ref=e308]:
+                  - generic [ref=e312]: 26/30
+                - cell "—" [ref=e313]
+              - row "МВ Морозов Владимир Алексеевич Электромонтажник 5 разряда ЦПС 30 апр. Подготовка 2/15 —" [ref=e314] [cursor=pointer]:
+                - cell "МВ Морозов Владимир Алексеевич Электромонтажник 5 разряда" [ref=e315]:
+                  - generic [ref=e316]:
+                    - generic [ref=e317]: МВ
+                    - generic [ref=e318]:
+                      - generic [ref=e320]: Морозов Владимир Алексеевич
+                      - generic [ref=e321]: Электромонтажник 5 разряда
+                - cell "ЦПС" [ref=e322]:
+                  - generic [ref=e323]: ЦПС
+                - cell "30 апр." [ref=e324]
+                - cell "Подготовка" [ref=e325]:
+                  - generic [ref=e326]: Подготовка
+                - cell "2/15" [ref=e327]:
+                  - generic [ref=e331]: 2/15
+                - cell "—" [ref=e332]
+              - row "ВК Васильев Константин Юрьевич Бригадир электромонтажников ЦПС 25 апр. Подготовка 10/15 —" [ref=e333] [cursor=pointer]:
+                - cell "ВК Васильев Константин Юрьевич Бригадир электромонтажников" [ref=e334]:
+                  - generic [ref=e335]:
+                    - generic [ref=e336]: ВК
+                    - generic [ref=e337]:
+                      - generic [ref=e339]: Васильев Константин Юрьевич
+                      - generic [ref=e340]: Бригадир электромонтажников
+                - cell "ЦПС" [ref=e341]:
+                  - generic [ref=e342]: ЦПС
+                - cell "25 апр." [ref=e343]
+                - cell "Подготовка" [ref=e344]:
+                  - generic [ref=e345]: Подготовка
+                - cell "10/15" [ref=e346]:
+                  - generic [ref=e350]: 10/15
+                - cell "—" [ref=e351]
+              - row "ПС Павлов Сергей Валерьевич Электрогазосварщик ЦПС 05 дек. В штате 30/30 —" [ref=e352] [cursor=pointer]:
+                - cell "ПС Павлов Сергей Валерьевич Электрогазосварщик" [ref=e353]:
+                  - generic [ref=e354]:
+                    - generic [ref=e355]: ПС
+                    - generic [ref=e356]:
+                      - generic [ref=e358]: Павлов Сергей Валерьевич
+                      - generic [ref=e359]: Электрогазосварщик
+                - cell "ЦПС" [ref=e360]:
+                  - generic [ref=e361]: ЦПС
+                - cell "05 дек." [ref=e362]
+                - cell "В штате" [ref=e363]:
+                  - generic [ref=e364]: В штате
+                - cell "30/30" [ref=e365]:
+                  - generic [ref=e369]: 30/30
+                - cell "—" [ref=e370]
+              - row "СР Семёнов Роман Викторович Инженер-сметчик СТ 20 апр. Испытательный 16/30 —" [ref=e371] [cursor=pointer]:
+                - cell "СР Семёнов Роман Викторович Инженер-сметчик" [ref=e372]:
+                  - generic [ref=e373]:
+                    - generic [ref=e374]: СР
+                    - generic [ref=e375]:
+                      - generic [ref=e377]: Семёнов Роман Викторович
+                      - generic [ref=e378]: Инженер-сметчик
+                - cell "СТ" [ref=e379]:
+                  - generic [ref=e380]: СТ
+                - cell "20 апр." [ref=e381]
+                - cell "Испытательный" [ref=e382]:
+                  - generic [ref=e383]: Испытательный
+                - cell "16/30" [ref=e384]:
+                  - generic [ref=e388]: 16/30
+                - cell "—" [ref=e389]
+              - row "ГА Голубев Артём Олегович Инженер-проектировщик СТ 18 апр. Испытательный 18/30 —" [ref=e390] [cursor=pointer]:
+                - cell "ГА Голубев Артём Олегович Инженер-проектировщик" [ref=e391]:
+                  - generic [ref=e392]:
+                    - generic [ref=e393]: ГА
+                    - generic [ref=e394]:
+                      - generic [ref=e396]: Голубев Артём Олегович
+                      - generic [ref=e397]: Инженер-проектировщик
+                - cell "СТ" [ref=e398]:
+                  - generic [ref=e399]: СТ
+                - cell "18 апр." [ref=e400]
+                - cell "Испытательный" [ref=e401]:
+                  - generic [ref=e402]: Испытательный
+                - cell "18/30" [ref=e403]:
+                  - generic [ref=e407]: 18/30
+                - cell "—" [ref=e408]
+              - row "ВМ Виноградов Максим Андреевич Электромонтажник 6 разряда ЦПС 23 апр. Первый день 2/22 Сегодня выход — 4 задачи просрочено" [ref=e409] [cursor=pointer]:
+                - cell "ВМ Виноградов Максим Андреевич Электромонтажник 6 разряда" [ref=e410]:
+                  - generic [ref=e411]:
+                    - generic [ref=e412]: ВМ
+                    - generic [ref=e413]:
+                      - generic [ref=e415]: Виноградов Максим Андреевич
+                      - generic [ref=e416]: Электромонтажник 6 разряда
+                - cell "ЦПС" [ref=e417]:
+                  - generic [ref=e418]: ЦПС
+                - cell "23 апр." [ref=e419]
+                - cell "Первый день" [ref=e420]:
+                  - generic [ref=e421]: Первый день
+                - cell "2/22" [ref=e422]:
+                  - generic [ref=e426]: 2/22
+                - cell "Сегодня выход — 4 задачи просрочено" [ref=e427]:
+                  - generic [ref=e428]:
+                    - img [ref=e429]
+                    - generic [ref=e431]: Сегодня выход — 4 задачи просрочено
+              - row "БЕ Богданов Егор Денисович Инженер ПТО СТ 15 апр. Испытательный 19/30 —" [ref=e432] [cursor=pointer]:
+                - cell "БЕ Богданов Егор Денисович Инженер ПТО" [ref=e433]:
+                  - generic [ref=e434]:
+                    - generic [ref=e435]: БЕ
+                    - generic [ref=e436]:
+                      - generic [ref=e438]: Богданов Егор Денисович
+                      - generic [ref=e439]: Инженер ПТО
+                - cell "СТ" [ref=e440]:
+                  - generic [ref=e441]: СТ
+                - cell "15 апр." [ref=e442]
+                - cell "Испытательный" [ref=e443]:
+                  - generic [ref=e444]: Испытательный
+                - cell "19/30" [ref=e445]:
+                  - generic [ref=e449]: 19/30
+                - cell "—" [ref=e450]
+              - row "ВИ Воробьёв Илья Павлович Начальник электромонтажного участка ЦПС 29 апр. Подготовка 5/15 —" [ref=e451] [cursor=pointer]:
+                - cell "ВИ Воробьёв Илья Павлович Начальник электромонтажного участка" [ref=e452]:
+                  - generic [ref=e453]:
+                    - generic [ref=e454]: ВИ
+                    - generic [ref=e455]:
+                      - generic [ref=e457]: Воробьёв Илья Павлович
+                      - generic [ref=e458]: Начальник электромонтажного участка
+                - cell "ЦПС" [ref=e459]:
+                  - generic [ref=e460]: ЦПС
+                - cell "29 апр." [ref=e461]
+                - cell "Подготовка" [ref=e462]:
+                  - generic [ref=e463]: Подготовка
+                - cell "5/15" [ref=e464]:
+                  - generic [ref=e468]: 5/15
+                - cell "—" [ref=e469]
+          - generic [ref=e470]:
+            - generic [ref=e471]: 18 записей · 0 из бота
+            - generic [ref=e472]: Auto-refresh каждые 7 сек
+        - generic [ref=e473]:
+          - generic [ref=e474]:
+            - generic [ref=e475]: Распределение по юр. лицам
+            - generic [ref=e476]:
+              - generic [ref=e477]: СТ
+              - generic [ref=e480]: "10"
+            - generic [ref=e481]:
+              - generic [ref=e482]: ЦПС
+              - generic [ref=e485]: "8"
+          - generic [ref=e486]:
+            - generic [ref=e487]: Распределение по статусу
+            - generic [ref=e488]:
+              - generic [ref=e489]: Подготовка
+              - generic [ref=e492]: "6"
+            - generic [ref=e493]:
+              - generic [ref=e494]: Первый день
+              - generic [ref=e497]: "3"
+            - generic [ref=e498]:
+              - generic [ref=e499]: Испытательный
+              - generic [ref=e502]: "7"
+            - generic [ref=e503]:
+              - generic [ref=e504]: В штате
+              - generic [ref=e507]: "2"
+          - generic [ref=e508]:
+            - generic [ref=e509]: Ближайшие события
+            - generic [ref=e510]:
+              - generic [ref=e511]: 24 апр.
+              - generic [ref=e512]: Сидоров Д. — первый день
+            - generic [ref=e513]:
+              - generic [ref=e514]: 25 апр.
+              - generic [ref=e515]: Васильев К. — первый день
+            - generic [ref=e516]:
+              - generic [ref=e517]: 27 апр.
+              - generic [ref=e518]: Галлямов Р. — первый день
+            - generic [ref=e519]:
+              - generic [ref=e520]: 28 апр.
+              - generic [ref=e521]: Волков А. — первый день
+            - generic [ref=e522]:
+              - generic [ref=e523]: 29 апр.
+              - generic [ref=e524]: Воробьёв И. — первый день
+            - generic [ref=e525]:
+              - generic [ref=e526]: 30 апр.
+              - generic [ref=e527]: Морозов В. — первый день
+        - generic [ref=e529]:
+          - generic [ref=e530]:
+            - heading "Сотрудник может зарегистрироваться сам" [level=3] [ref=e531]
+            - paragraph [ref=e532]: Покажите QR или ссылку новичку — он напишет боту, нажмёт «Начать онбординг», и его имя появится здесь в течение 10 секунд. Welcome-видео от Дениса Фадеева уйдёт автоматически.
+            - link "Открыть бота в Telegram" [ref=e533] [cursor=pointer]:
+              - /url: https://t.me/zinin_hr_onboarding_bot
+              - img [ref=e534]
+              - text: Открыть бота в Telegram
+          - generic [ref=e536]:
+            - img "QR для бота" [ref=e538]
+            - generic [ref=e539]: "@zinin_hr_onboarding_bot"
+      - complementary [ref=e540]:
+        - generic [ref=e541]:
+          - generic [ref=e542]:
+            - img [ref=e543]
+            - text: Live activity
+          - generic [ref=e545]: Обновление каждые 7 секунд
+        - generic [ref=e546]:
+          - generic [ref=e547]:
+            - img [ref=e549]
+            - generic [ref=e551]:
+              - text: Иванов П.С. прошёл инструктаж по охране труда
+              - generic [ref=e552]: 14:28
+          - generic [ref=e553]:
+            - img [ref=e555]
+            - generic [ref=e557]:
+              - text: Виноградов М.А. не явился на инструктаж ОТ
+              - generic [ref=e558]: 14:15
+          - generic [ref=e559]:
+            - img [ref=e561]
+            - generic [ref=e563]:
+              - text: Смирнова А.П. получила Welcome book
+              - generic [ref=e564]: 13:52
+          - generic [ref=e565]:
+            - img [ref=e567]
+            - generic [ref=e569]:
+              - text: Галлямов Р.З. прислал сканы паспорта, ИНН, СНИЛС
+              - generic [ref=e570]: 13:45
+          - generic [ref=e571]:
+            - img [ref=e573]
+            - generic [ref=e575]:
+              - text: Петров А.Н. завершил пульс-опрос Day 30
+              - generic [ref=e576]: 13:20
+          - generic [ref=e577]:
+            - img [ref=e579]
+            - generic [ref=e581]:
+              - text: Сидоров Д.И. подтвердил дату выхода 24 апреля
+              - generic [ref=e582]: 12:58
+          - generic [ref=e583]:
+            - img [ref=e585]
+            - generic [ref=e587]:
+              - text: Иванов П.С. добавлен в WhatsApp чат компании
+              - generic [ref=e588]: 12:30
+          - generic [ref=e589]:
+            - img [ref=e591]
+            - generic [ref=e593]:
+              - text: "Воробьёв И.П. новый онбординг: начальник участка, ЦПС, выход 29 апреля"
+              - generic [ref=e594]: 11:45
+          - generic [ref=e595]:
+            - img [ref=e597]
+            - generic [ref=e599]:
+              - text: Морозов В.А. получил welcome-видео от основателя
+              - generic [ref=e600]: 11:20
+          - generic [ref=e601]:
+            - img [ref=e603]
+            - generic [ref=e605]:
+              - text: "Смирнова А.П. задала вопрос: «куда сдавать трудовую книжку?»"
+              - generic [ref=e606]: 10:55
+          - generic [ref=e607]:
+            - img [ref=e609]
+            - generic [ref=e611]:
+              - text: Иванов П.С. подписал трудовой договор и NDA
+              - generic [ref=e612]: 10:30
+          - generic [ref=e613]:
+            - img [ref=e615]
+            - generic [ref=e617]:
+              - text: "Иванов П.С. напоминание: инструктаж ОТ в 14:00, кабинет 312"
+              - generic [ref=e618]: 10:00
+          - generic [ref=e619]:
+            - img [ref=e621]
+            - generic [ref=e623]:
+              - text: Семёнов Р.В. получил доступы к 1С:Смета
+              - generic [ref=e624]: 09:45
+          - generic [ref=e625]:
+            - img [ref=e627]
+            - generic [ref=e629]:
+              - text: Смирнова А.П. получила welcome-видео от основателя
+              - generic [ref=e630]: 09:20
+          - generic [ref=e631]:
+            - img [ref=e633]
+            - generic [ref=e635]:
+              - text: system утренний пул задач разослан (18 новичков, 42 сообщения)
+              - generic [ref=e636]: 09:00
+          - generic [ref=e637]:
+            - img [ref=e639]
+            - generic [ref=e641]:
+              - text: Орлов Н.П. прошёл 90-дневный review, переведён в штат
+              - generic [ref=e642]: вчера · 17:30
+          - generic [ref=e643]:
+            - img [ref=e645]
+            - generic [ref=e647]:
+              - text: Лебедев Е.М. завершил 80-дневный check-in
+              - generic [ref=e648]: вчера · 16:15
+          - generic [ref=e649]:
+            - img [ref=e651]
+            - generic [ref=e653]:
+              - text: Сидоров Д.И. прислал справку 2-НДФЛ
+              - generic [ref=e654]: вчера · 15:40
+          - generic [ref=e655]:
+            - img [ref=e657]
+            - generic [ref=e659]:
+              - text: Новикова О.С. прошла 50-дневный пульс-опрос
+              - generic [ref=e660]: вчера · 14:50
+          - generic [ref=e661]:
+            - img [ref=e663]
+            - generic [ref=e665]:
+              - text: "Богданов Е.Д. вопрос: «можно ли работать удалённо по средам?»"
+              - generic [ref=e666]: вчера · 14:10
+          - generic [ref=e667]:
+            - img [ref=e669]
+            - generic [ref=e671]:
+              - text: Голубев А.О. установочная встреча с ГИПом проведена
+              - generic [ref=e672]: вчера · 13:25
+          - generic [ref=e673]:
+            - img [ref=e675]
+            - generic [ref=e677]:
+              - text: "Волков А.Н. задача: прислать сканы — просрочка 2 дня"
+              - generic [ref=e678]: вчера · 12:00
+          - generic [ref=e679]:
+            - img [ref=e681]
+            - generic [ref=e683]:
+              - text: "Морозов В.А. новый онбординг: электромонтажник 5 разряда, ЦПС, выход 30 апреля"
+              - generic [ref=e684]: вчера · 11:30
+          - generic [ref=e685]:
+            - img [ref=e687]
+            - generic [ref=e689]:
+              - text: Васильев К.Ю. получил именной пропуск
+              - generic [ref=e690]: вчера · 10:15
+          - generic [ref=e691]:
+            - img [ref=e693]
+            - generic [ref=e695]:
+              - text: system утренний пул задач разослан (17 новичков, 38 сообщений)
+              - generic [ref=e696]: вчера · 09:00
+          - generic [ref=e697]:
+            - img [ref=e699]
+            - generic [ref=e701]:
+              - text: Кузнецова М.В. прошла 60-дневный 1:1 с Дмитрием
+              - generic [ref=e702]: 21 апр.
+          - generic [ref=e703]:
+            - img [ref=e705]
+            - generic [ref=e707]:
+              - text: "Галлямов Р.З. новый онбординг: инженер-сметчик, СТ, выход 27 апреля"
+              - generic [ref=e708]: 21 апр.
+          - generic [ref=e709]:
+            - img [ref=e711]
+            - generic [ref=e713]:
+              - text: Галлямов Р.З. получил welcome-видео от основателя
+              - generic [ref=e714]: 21 апр.
+          - generic [ref=e715]:
+            - img [ref=e717]
+            - generic [ref=e719]:
+              - text: Петров А.Н. прошёл промежуточную встречу с линейным
+              - generic [ref=e720]: 21 апр.
+          - generic [ref=e721]:
+            - img [ref=e723]
+            - generic [ref=e725]:
+              - text: "Сидоров Д.И. новый онбординг: начальник участка, ЦПС, выход 24 апреля"
+              - generic [ref=e726]: 21 апр.

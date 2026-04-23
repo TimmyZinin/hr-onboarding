@@ -3,243 +3,315 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HR Onboarding — живой пульс компании</title>
-<meta name="description" content="Все онбординги сотрудников в одном окне. Прогресс, метрики, live-события из Telegram-бота.">
-<meta property="og:title" content="HR Onboarding — живой пульс компании">
-<meta property="og:description" content="Все онбординги сотрудников в одном окне. Прогресс, метрики, live-события из Telegram-бота.">
-<meta property="og:type" content="website">
+<title>HR Onboarding · Сила Тока</title>
+<meta name="description" content="HR-панель онбординга ПК «Сила Тока». Все новички, задачи, прогресс и live-события в одном окне.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E⚡%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Serif+Display&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=DM+Serif+Display&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<script>
+  window.HR_API_BASE = 'https://painted-massachusetts-expansion-fields.trycloudflare.com';
+  window.HR_BOT_URL = 'https://t.me/zinin_hr_onboarding_bot';
+</script>
 <script defer src="https://unpkg.com/alpinejs@3.14.8/dist/cdn.min.js"></script>
 </head>
 <body x-data="dashboard" x-init="init()" x-cloak>
 
+<!-- SVG sprite -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-dash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    <symbol id="i-tasks" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></symbol>
+    <symbol id="i-filter" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></symbol>
+    <symbol id="i-arrow-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></symbol>
+    <symbol id="i-arrow-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></symbol>
+    <symbol id="i-user-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></symbol>
+    <symbol id="i-video" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></symbol>
+    <symbol id="i-question" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
+    <symbol id="i-inbox" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
+  </defs>
+</svg>
+
 <div class="app">
 
-  <header class="topbar">
-    <div>
-      <div class="brand"><em>HR</em> Onboarding</div>
+  <aside class="sidebar">
+    <div class="nav-brand">
+      <div class="logo">⚡</div>
+      <div>
+        <div>Сила Тока</div>
+        <div class="brand-sub">HR Onboarding</div>
+      </div>
     </div>
-    <div class="brand-sub mono">live · <span x-text="now"></span></div>
-    <div class="top-cta">
-      <button class="btn" @click="refreshFeed()">↻ Обновить</button>
-      <button class="btn primary" @click="openNewModal()">+ Новый сотрудник</button>
+    <nav class="nav-items">
+      <button class="nav-item active"><svg><use href="#i-dash"/></svg>Обзор</button>
+      <button class="nav-item"><svg><use href="#i-users"/></svg>Сотрудники <span class="count" x-text="employees.filter(e => ['prep','day1','probation'].includes(e.status)).length"></span></button>
+      <button class="nav-item"><svg><use href="#i-tasks"/></svg>Задачи <span class="count alert" x-text="metrics.overdue" x-show="metrics.overdue > 0"></span></button>
+      <button class="nav-item"><svg><use href="#i-chart"/></svg>Отчёты</button>
+      <div class="nav-section">Настройки</div>
+      <button class="nav-item"><svg><use href="#i-settings"/></svg>Интеграции</button>
+    </nav>
+    <div class="nav-footer">
+      <div class="nav-user-avatar" style="background: oklch(55% 0.15 300);">ДХ</div>
+      <div class="nav-user-info">
+        <div class="name">Дмитрий Харламов</div>
+        <div class="role">HR · admin</div>
+      </div>
+    </div>
+  </aside>
+
+  <header class="topbar">
+    <div class="page-title">
+      Обзор <span class="sub" x-text="today + ' · обновлено ' + now"></span>
+    </div>
+    <div class="search-bar">
+      <span class="ico"><svg><use href="#i-search"/></svg></span>
+      <input type="search" placeholder="Поиск по сотрудникам, должностям…" x-model="search" aria-label="Поиск">
+    </div>
+    <div class="topbar-right">
+      <div class="live-pill" x-show="window.HR_API_BASE">
+        <span class="dot"></span> LIVE
+      </div>
+      <button class="icon-btn" aria-label="Уведомления" @click="refreshFeed()">
+        <svg><use href="#i-bell"/></svg>
+        <span class="badge-dot" x-show="events.some(e => e._real && (Date.now() - new Date(e.ts).getTime()) < 60000)"></span>
+      </button>
+      <div class="user-menu">
+        <div class="avatar" style="background: oklch(55% 0.15 300);">ДХ</div>
+        <div class="name">Дмитрий</div>
+      </div>
     </div>
   </header>
 
   <main class="main">
 
-    <section class="hero">
-      <div>
-        <h1 class="hero-title">Онбординг — <em>на одном экране</em>.</h1>
-        <p class="hero-sub">Все новички, все задачи, все роли. Видно кто выходит сегодня, где просрочки, какие вопросы к HR. Задачи и welcome-видео уходят в Telegram сотруднику сами — вы просто смотрите, как идёт.</p>
-      </div>
-      <div class="hero-viz">
-        <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <defs>
-            <linearGradient id="grad1" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="oklch(72% 0.14 75)" />
-              <stop offset="100%" stop-color="oklch(42% 0.15 25)" />
-            </linearGradient>
-          </defs>
-          <!-- abstract dashboard composition -->
-          <rect x="20" y="40" width="150" height="90" rx="8" fill="oklch(93% 0.04 85)" stroke="oklch(20% 0.02 40)" stroke-width="1.5"/>
-          <rect x="30" y="55" width="60" height="8" rx="4" fill="oklch(42% 0.15 25)"/>
-          <rect x="30" y="70" width="100" height="5" rx="2" fill="oklch(55% 0.02 40)"/>
-          <rect x="30" y="82" width="80" height="5" rx="2" fill="oklch(55% 0.02 40)"/>
-          <rect x="30" y="100" width="130" height="4" rx="2" fill="oklch(85% 0.02 40)"/>
-          <rect x="30" y="100" width="85" height="4" rx="2" fill="oklch(42% 0.15 25)"/>
-
-          <circle cx="280" cy="85" r="55" fill="url(#grad1)" opacity="0.9"/>
-          <circle cx="280" cy="85" r="35" fill="oklch(97% 0.02 85)"/>
-          <text x="280" y="92" text-anchor="middle" font-family="DM Serif Display" font-size="28" fill="oklch(18% 0.02 40)">15</text>
-
-          <rect x="20" y="160" width="360" height="120" rx="8" fill="oklch(93% 0.04 85)" stroke="oklch(20% 0.02 40)" stroke-width="1.5"/>
-          <circle cx="45" cy="185" r="12" fill="oklch(72% 0.14 75)"/>
-          <rect x="65" y="180" width="200" height="5" rx="2" fill="oklch(18% 0.02 40)"/>
-          <rect x="65" y="192" width="140" height="4" rx="2" fill="oklch(55% 0.02 40)"/>
-          <circle cx="45" cy="215" r="12" fill="oklch(42% 0.15 25)"/>
-          <rect x="65" y="210" width="220" height="5" rx="2" fill="oklch(18% 0.02 40)"/>
-          <rect x="65" y="222" width="160" height="4" rx="2" fill="oklch(55% 0.02 40)"/>
-          <circle cx="45" cy="245" r="12" fill="oklch(55% 0.12 140)"/>
-          <rect x="65" y="240" width="180" height="5" rx="2" fill="oklch(18% 0.02 40)"/>
-          <rect x="65" y="252" width="130" height="4" rx="2" fill="oklch(55% 0.02 40)"/>
-
-          <g stroke="oklch(42% 0.15 25)" stroke-width="2" fill="none">
-            <path d="M 180 120 Q 220 100 260 120" opacity="0.4"/>
-          </g>
-        </svg>
-      </div>
-    </section>
+    <div class="hero-compact">
+      <h1><em x-text="greetingName"></em>, вот текущая картина онбординга.</h1>
+      <div class="sub">Задачи и welcome-видео уходят сотрудникам сами. Вы видите живой статус.</div>
+    </div>
 
     <section class="metrics">
       <div class="metric">
-        <div class="num"><em x-text="metrics.inOnboarding"></em></div>
-        <div class="label">В онбординге</div>
+        <div class="label"><svg><use href="#i-users"/></svg>В онбординге</div>
+        <div class="num" x-text="metrics.inOnboarding"></div>
+        <span class="trend up" x-show="metrics.live > 0">
+          <svg><use href="#i-arrow-up"/></svg>+<span x-text="metrics.live"></span> live
+        </span>
+        <span class="trend flat" x-show="metrics.live === 0">за 24 ч: стабильно</span>
       </div>
       <div class="metric" :class="metrics.overdue > 0 ? 'alert' : ''">
-        <div class="num"><em x-text="metrics.overdue"></em></div>
-        <div class="label">Просрочек</div>
+        <div class="label"><svg><use href="#i-alert"/></svg>Просрочки</div>
+        <div class="num" x-text="metrics.overdue"></div>
+        <span class="trend up" x-show="metrics.overdue > 0"><svg><use href="#i-arrow-up"/></svg>требуют действий</span>
+        <span class="trend flat" x-show="metrics.overdue === 0">всё по плану</span>
       </div>
       <div class="metric">
-        <div class="num"><em x-text="metrics.todayStart"></em></div>
-        <div class="label">Выходят сегодня</div>
+        <div class="label"><svg><use href="#i-calendar"/></svg>Выходят сегодня</div>
+        <div class="num" x-text="metrics.todayStart"></div>
+        <span class="trend flat"><span x-text="upcomingThisWeek"></span> до конца недели</span>
       </div>
       <div class="metric">
-        <div class="num"><em x-text="metrics.upcomingReview"></em></div>
-        <div class="label">90-day review на неделе</div>
+        <div class="label"><svg><use href="#i-check"/></svg>90-day review</div>
+        <div class="num" x-text="metrics.upcomingReview"></div>
+        <span class="trend flat">на этой неделе</span>
       </div>
     </section>
 
-    <section class="section">
-      <div class="section-head">
-        <h2 class="section-title">Активные <em>онбординги</em></h2>
-        <div class="controls">
-          <input class="search" type="search" placeholder="Найти по ФИО или должности" x-model="search">
-          <button class="chip" :class="filter === 'all' ? 'active' : ''" @click="filter = 'all'">все</button>
-          <button class="chip" :class="filter === 'prep' ? 'active' : ''" @click="filter = 'prep'">подготовка</button>
-          <button class="chip" :class="filter === 'day1' ? 'active' : ''" @click="filter = 'day1'">первый день</button>
-          <button class="chip" :class="filter === 'probation' ? 'active' : ''" @click="filter = 'probation'">испытательный</button>
-          <button class="chip" :class="filter === 'staffed' ? 'active' : ''" @click="filter = 'staffed'">в штате</button>
-        </div>
-      </div>
+    <div class="layout-2col">
+      <div>
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Активные онбординги</div>
+              <div class="card-sub"><span x-text="filteredEmployees.length"></span> из <span x-text="employees.length"></span> · сортировка по дате выхода</div>
+            </div>
+            <div class="controls">
+              <button class="chip" :class="filter === 'all' ? 'active' : ''" @click="filter = 'all'">Все</button>
+              <button class="chip" :class="filter === 'prep' ? 'active' : ''" @click="filter = 'prep'">Подготовка</button>
+              <button class="chip" :class="filter === 'day1' ? 'active' : ''" @click="filter = 'day1'">Первый день</button>
+              <button class="chip" :class="filter === 'probation' ? 'active' : ''" @click="filter = 'probation'">Испытательный</button>
+              <button class="chip" :class="filter === 'staffed' ? 'active' : ''" @click="filter = 'staffed'">В штате</button>
+              <button class="btn" title="Экспорт"><svg><use href="#i-download"/></svg>Экспорт</button>
+              <button class="btn primary" @click="newOpen = true"><svg><use href="#i-plus"/></svg>Новый</button>
+            </div>
+          </div>
 
-      <div class="table-wrap">
-        <table class="employees">
-          <thead>
-            <tr>
-              <th>Сотрудник</th>
-              <th>Юр. лицо</th>
-              <th>Дата выхода</th>
-              <th>Статус</th>
-              <th>Прогресс</th>
-              <th>Флаг</th>
-            </tr>
-          </thead>
-          <tbody>
-            <template x-for="emp in filteredEmployees" :key="emp.id">
-              <tr @click="openDetail(emp)">
-                <td>
-                  <div class="cell-fio">
-                    <div class="avatar" x-text="emp.avatar"></div>
-                    <div>
-                      <div x-text="emp.fio"></div>
-                      <div class="position" x-text="emp.position"></div>
-                    </div>
-                  </div>
-                </td>
-                <td><span class="badge badge-company" x-text="emp.company"></span></td>
-                <td class="mono" x-text="formatDate(emp.start_date)"></td>
-                <td><span class="pill-status" :class="'status-' + emp.status" x-text="statusLabel(emp.status)"></span></td>
-                <td>
-                  <div class="progress">
-                    <div class="progress-bar">
-                      <div class="progress-fill" :style="`width: ${(emp.progress.done / emp.progress.total * 100).toFixed(0)}%`"></div>
-                    </div>
-                    <span class="progress-txt" x-text="`${emp.progress.done}/${emp.progress.total}`"></span>
-                  </div>
-                </td>
-                <td>
-                  <span x-show="emp.hr_flag" class="flag" x-text="emp.hr_flag"></span>
-                  <span x-show="!emp.hr_flag" class="mono" style="color: var(--ink-muted);">—</span>
-                </td>
+          <div x-show="filteredEmployees.length === 0" class="empty-state">
+            <svg><use href="#i-users"/></svg>
+            <h4>Пока нет активных онбордингов</h4>
+            <p>Нажмите «Новый» или попросите нового сотрудника написать боту. Он появится здесь моментально.</p>
+          </div>
+
+          <table class="emp-table" x-show="filteredEmployees.length > 0">
+            <thead>
+              <tr>
+                <th>Сотрудник</th>
+                <th>Юр. лицо</th>
+                <th>Дата выхода</th>
+                <th>Статус</th>
+                <th>Прогресс</th>
+                <th>Флаг</th>
               </tr>
-            </template>
-          </tbody>
-        </table>
-      </div>
-    </section>
+            </thead>
+            <tbody>
+              <template x-for="emp in filteredEmployees" :key="emp.id">
+                <tr @click="openDetail(emp)" :class="emp._is_new ? 'row-new' : ''">
+                  <td>
+                    <div class="cell-fio">
+                      <div class="avatar" :style="`background: ${avatarColor(emp.fio)}`" x-text="initials(emp.fio)"></div>
+                      <div>
+                        <div class="fio-name">
+                          <span x-text="emp.fio"></span>
+                          <span class="tag-new" x-show="emp._is_new">NEW</span>
+                          <span class="tag-live" x-show="emp._real && !emp._is_new"><span class="dot"></span>LIVE</span>
+                        </div>
+                        <div class="fio-pos" x-text="emp.position"></div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="badge-company" x-text="emp.company"></span></td>
+                  <td class="mono" x-text="formatDate(emp.start_date)"></td>
+                  <td><span class="pill-status" :class="'status-' + emp.status" x-text="statusLabel(emp.status)"></span></td>
+                  <td>
+                    <div class="progress">
+                      <div class="progress-bar">
+                        <div class="progress-fill" :style="`width: ${(emp.progress.done / Math.max(emp.progress.total, 1) * 100).toFixed(0)}%`"></div>
+                      </div>
+                      <span class="progress-txt" x-text="`${emp.progress.done}/${emp.progress.total}`"></span>
+                    </div>
+                  </td>
+                  <td>
+                    <span x-show="emp.hr_flag" class="flag"><svg><use href="#i-alert"/></svg><span x-text="emp.hr_flag"></span></span>
+                    <span x-show="!emp.hr_flag" style="color: var(--ink-4); font-family: var(--f-mono); font-size: 11px;">—</span>
+                  </td>
+                </tr>
+              </template>
+            </tbody>
+          </table>
 
-    <section class="widget-grid">
-      <div class="widget">
-        <div class="widget-label">Распределение по юр. лицам</div>
-        <template x-for="co in companyStats" :key="co.name">
-          <div class="bar-row">
-            <span class="bar-label" x-text="co.name"></span>
-            <div class="bar-track">
-              <div class="bar-fill" :class="co.name === 'ЦПС' ? 'ct' : ''" :style="`width: ${(co.count / employees.length * 100).toFixed(0)}%`"></div>
-            </div>
-            <span class="bar-val" x-text="co.count"></span>
-          </div>
-        </template>
-      </div>
-      <div class="widget">
-        <div class="widget-label">Распределение по статусу</div>
-        <template x-for="st in statusStats" :key="st.key">
-          <div class="bar-row">
-            <span class="bar-label" x-text="st.label"></span>
-            <div class="bar-track">
-              <div class="bar-fill" :style="`width: ${(st.count / employees.length * 100).toFixed(0)}%; background: ${st.color}`"></div>
-            </div>
-            <span class="bar-val" x-text="st.count"></span>
-          </div>
-        </template>
-      </div>
-      <div class="widget">
-        <div class="widget-label">Ближайшие события</div>
-        <template x-for="u in upcoming" :key="u.id">
-          <div class="bar-row">
-            <span class="bar-label mono" x-text="u.when"></span>
-            <span style="flex:1; font-size:13px;" x-text="u.text"></span>
-          </div>
-        </template>
-      </div>
-    </section>
-
-  </main>
-
-  <aside class="feed-col">
-    <div class="feed">
-      <div class="feed-title"><span class="dot"></span> Live activity · обновление каждые 7 сек</div>
-      <template x-for="ev in events" :key="ev.id">
-        <div class="event">
-          <div class="ev-icon" x-text="eventIcon(ev.type)"></div>
-          <div class="ev-body">
-            <span class="ev-emp" x-text="ev.employee"></span>
-            <span class="ev-text" x-text="' ' + ev.text"></span>
-            <div class="ev-ts mono" x-text="formatEventTs(ev.ts)"></div>
+          <div class="table-footer" x-show="filteredEmployees.length > 0">
+            <div><span x-text="filteredEmployees.length"></span> <span x-text="pluralize(filteredEmployees.length, 'запись', 'записи', 'записей')"></span> · <span x-text="employees.filter(e => e._real).length"></span> из бота</div>
+            <div>Auto-refresh каждые 7 сек</div>
           </div>
         </div>
-      </template>
-    </div>
-  </aside>
 
-  <footer class="footer">
-    <span>HR Onboarding · демо · пульс компании в real-time</span> ·
-    <span>bot: <b>@zinin_hr_onboarding_bot</b></span> ·
-    <span>source: <b>github.com/TimmyZinin/hr-onboarding</b></span>
-  </footer>
+        <section class="widgets">
+          <div class="widget">
+            <div class="widget-label">Распределение по юр. лицам</div>
+            <template x-for="co in companyStats" :key="co.name">
+              <div class="bar-row">
+                <span class="bar-label" x-text="co.name"></span>
+                <div class="bar-track">
+                  <div class="bar-fill" :class="co.name === 'ЦПС' ? 'ct' : ''" :style="`width: ${(co.count / Math.max(employees.length, 1) * 100).toFixed(0)}%`"></div>
+                </div>
+                <span class="bar-val" x-text="co.count"></span>
+              </div>
+            </template>
+          </div>
+          <div class="widget">
+            <div class="widget-label">Распределение по статусу</div>
+            <template x-for="st in statusStats" :key="st.key">
+              <div class="bar-row">
+                <span class="bar-label" x-text="st.label"></span>
+                <div class="bar-track">
+                  <div class="bar-fill" :style="`width: ${(st.count / Math.max(employees.length, 1) * 100).toFixed(0)}%; background: ${st.color}`"></div>
+                </div>
+                <span class="bar-val" x-text="st.count"></span>
+              </div>
+            </template>
+          </div>
+          <div class="widget">
+            <div class="widget-label">Ближайшие события</div>
+            <template x-for="u in upcoming" :key="u.id">
+              <div class="bar-row">
+                <span class="bar-label mono" x-text="u.when"></span>
+                <span style="flex:1; font-size:12.5px;" x-text="u.text"></span>
+              </div>
+            </template>
+            <div class="empty-state" x-show="upcoming.length === 0" style="padding: 10px; text-align: left;">
+              <p style="font-size: 12px; color: var(--ink-4);">Нет событий на ближайшую неделю.</p>
+            </div>
+          </div>
+        </section>
+
+        <section style="margin-top: 20px;">
+          <div class="signup-card">
+            <div>
+              <h3>Сотрудник может зарегистрироваться сам</h3>
+              <p>Покажите QR или ссылку новичку — он напишет боту, нажмёт «Начать онбординг», и его имя появится здесь в течение 10 секунд. Welcome-видео от Дениса Фадеева уйдёт автоматически.</p>
+              <a :href="window.HR_BOT_URL" target="_blank" class="btn"><svg><use href="#i-send"/></svg>Открыть бота в Telegram</a>
+            </div>
+            <div>
+              <div class="qr"><img :src="`https://api.qrserver.com/v1/create-qr-code/?size=280x280&margin=0&data=${encodeURIComponent(window.HR_BOT_URL)}`" alt="QR для бота"></div>
+              <div class="qr-cap">@zinin_hr_onboarding_bot</div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <aside class="feed-card">
+        <div class="feed-head">
+          <div class="feed-title"><svg style="width: 14px; height: 14px;"><use href="#i-inbox"/></svg>Live activity</div>
+          <div class="feed-meta">Обновление каждые 7 секунд</div>
+        </div>
+        <div class="feed-body">
+          <div x-show="events.length === 0" class="empty-state" style="padding: 20px;">
+            <p style="font-size: 12px;">Пока тихо. События появятся когда сотрудники начнут действовать.</p>
+          </div>
+          <template x-for="ev in events.slice(0, 40)" :key="ev.id">
+            <div class="event" :class="ev._is_new ? 'event-new' : ''">
+              <div class="event-icon" :class="eventIconClass(ev.type)">
+                <svg><use :href="'#' + eventIconId(ev.type)"/></svg>
+              </div>
+              <div class="event-body">
+                <span class="emp" x-text="ev.employee"></span> <span class="text" x-text="ev.text"></span>
+                <div class="ts" x-text="formatEventTs(ev.ts)"></div>
+              </div>
+            </div>
+          </template>
+        </div>
+      </aside>
+    </div>
+  </main>
 
 </div>
 
 <!-- Detail modal -->
 <div class="modal-backdrop" x-show="detailOpen" @click.self="closeDetail()" x-cloak>
   <div class="modal" x-show="detailOpen" x-transition>
-    <button class="modal-close" @click="closeDetail()">×</button>
+    <button class="modal-close" @click="closeDetail()" aria-label="Закрыть"><svg><use href="#i-close"/></svg></button>
     <template x-if="current">
       <div>
         <div class="emp-head">
-          <div class="avatar" x-text="current.avatar"></div>
+          <div class="avatar lg" :style="`background: ${avatarColor(current.fio)}`" x-text="initials(current.fio)"></div>
           <div style="flex:1">
             <div class="fio" x-text="current.fio"></div>
-            <div class="pos" x-text="current.position + ' · ' + current.manager"></div>
+            <div class="pos" x-text="current.position + ' · ' + (current.manager || '')"></div>
             <div class="emp-meta">
-              <span class="badge badge-company" x-text="current.company"></span>
+              <span class="badge-company" x-text="current.company"></span>
               <span class="pill-status" :class="'status-' + current.status" x-text="statusLabel(current.status)"></span>
-              <span class="mono" style="font-size:11px;color:var(--ink-soft);letter-spacing:0.1em">
-                ВЫХОД: <span x-text="formatDate(current.start_date)"></span>
-              </span>
-              <span class="mono" style="font-size:11px;color:var(--ink-soft);letter-spacing:0.1em">
-                ПРОГРЕСС: <span x-text="current.progress.done + '/' + current.progress.total"></span>
-              </span>
+              <span class="mono">ВЫХОД: <span x-text="formatDate(current.start_date)"></span></span>
+              <span class="mono">ПРОГРЕСС: <span x-text="current.progress.done + '/' + current.progress.total"></span></span>
+              <span class="tag-live" x-show="current._real"><span class="dot"></span>LIVE</span>
             </div>
-            <div x-show="current.hr_flag" class="flag" style="margin-top:10px" x-text="current.hr_flag"></div>
+            <div x-show="current.hr_flag" class="flag" style="margin-top:10px"><svg><use href="#i-alert"/></svg><span x-text="current.hr_flag"></span></div>
           </div>
         </div>
-
-        <h3 style="font-size:22px;margin-bottom:16px">Timeline онбординга</h3>
+        <h3 style="font-size:15px;margin-bottom:14px;font-weight:600">Таймлайн онбординга</h3>
         <div class="timeline">
           <template x-for="group in timelineForCurrent" :key="group.day">
             <div class="t-day">
@@ -259,24 +331,47 @@
   </div>
 </div>
 
-<!-- New-employee modal (demo only — просто показывает что есть точка входа) -->
+<!-- New-employee modal -->
 <div class="modal-backdrop" x-show="newOpen" @click.self="newOpen=false" x-cloak>
   <div class="modal" x-show="newOpen" x-transition style="max-width:500px">
-    <button class="modal-close" @click="newOpen=false">×</button>
-    <h3 style="font-size:26px;margin-bottom:16px">Новый сотрудник</h3>
-    <p style="color:var(--ink-soft);margin-bottom:20px;line-height:1.5">Добавить сотрудника можно командой в боте:</p>
-    <div class="mono" style="background:var(--cream);padding:14px 18px;border-radius:var(--r-md);border:1.5px solid var(--line);font-size:13px;margin-bottom:16px">
-      /new Иванов Иван Иванович, Инженер-сметчик, 2026-04-28, СТ, @iivanov
+    <button class="modal-close" @click="newOpen=false" aria-label="Закрыть"><svg><use href="#i-close"/></svg></button>
+    <h3 style="font-family: var(--f-serif); font-size:26px; margin-bottom: 4px; font-weight: 400;">Новый сотрудник</h3>
+    <p style="color:var(--ink-3);margin-bottom:20px;font-size:13px;">Самый простой путь — сотрудник сам пишет боту. Его имя появится в таблице через ~10 секунд.</p>
+
+    <div style="background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--r-md); padding: 14px; margin-bottom: 14px;">
+      <div style="font-size: 12px; font-weight: 600; color: var(--ink-3); margin-bottom: 8px; letter-spacing: 0.04em; text-transform: uppercase;">Рекомендуемый путь</div>
+      <ol style="margin: 0; padding-left: 20px; font-size: 13px; line-height: 1.6;">
+        <li>Перешлите новичку ссылку на бота</li>
+        <li>Он нажмёт «🚀 Начать онбординг»</li>
+        <li>Получит welcome-видео основателя</li>
+        <li>Появится в этой таблице</li>
+      </ol>
+      <a :href="window.HR_BOT_URL" target="_blank" class="btn primary" style="margin-top: 12px; text-decoration: none;">
+        <svg><use href="#i-send"/></svg>Переслать ссылку на бота
+      </a>
     </div>
-    <p style="color:var(--ink-soft);font-size:14px;line-height:1.5">Бот сразу отправит новичку приветственное видео основателя и развернёт расписание из 22 задач на Day 0, дальше задачи идут по расписанию — от Day 1 до Day 90.</p>
-    <a href="https://t.me/zinin_hr_onboarding_bot" target="_blank" class="btn primary" style="margin-top:20px;display:inline-block;text-decoration:none">Открыть бота в Telegram</a>
+
+    <div style="font-size: 12px; font-weight: 600; color: var(--ink-3); margin-bottom: 6px; letter-spacing: 0.04em; text-transform: uppercase;">Или через команду в боте</div>
+    <div class="mono" style="background:var(--surface-2);padding:10px 14px;border-radius:var(--r-sm);border:1px solid var(--border);font-size:12px;margin-bottom:10px;user-select:all;">
+      /new Иванов Иван, Инженер-сметчик, 2026-04-28, СТ, @iivanov
+    </div>
+    <p style="color:var(--ink-3);font-size:12px;line-height:1.5">Только для HR. Бот создаст онбординг, если у сотрудника был контакт с ним (хотя бы /start в прошлом).</p>
   </div>
 </div>
 
-<script>
-  // Backend API base. Live bot: cloudflare tunnel. Empty → dashboard works on mocks only.
-  window.HR_API_BASE = 'https://painted-massachusetts-expansion-fields.trycloudflare.com';
-</script>
-<script src="js/app.js"></script>
+<!-- Toasts -->
+<div class="toasts">
+  <template x-for="t in toasts" :key="t.id">
+    <div class="toast" :class="t.leave ? 'leave' : ''">
+      <div class="toast-icon"><svg><use href="#i-user-plus"/></svg></div>
+      <div>
+        <div class="title" x-text="t.title"></div>
+        <div class="desc" x-text="t.desc"></div>
+      </div>
+    </div>
+  </template>
+</div>
+
+<script src="js/app.js?v=2"></script>
 </body>
 </html>
